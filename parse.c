@@ -31,9 +31,11 @@ line = trim(line);
 if(line[0] == '\0'){
 return 0;
 }
-
-
-}
-
-
-
+char *eq = strchr(line,'=');
+if (eq == NULL)
+return 0;
+if(eq==line)
+return 0;
+if(strchr(eq+1,'=')!=NULL)
+return 0;
+//added condition to check whether the "=" is present more than ones
