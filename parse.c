@@ -27,6 +27,12 @@ return s+begin;
 
 int parse_kv(char *line,char** key,char** value){
 line = trim(line);
+//now we need to check whether the line we trimmed is empty or not
+if(line[0] == '\0'){
+return 0;
+}
+
+
 }
 
 
