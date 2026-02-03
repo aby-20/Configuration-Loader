@@ -39,3 +39,5 @@ return 0;
 if(strchr(eq+1,'=')!=NULL)
 return 0;
 //added condition to check whether the "=" is present more than ones
+*eq = '\0';
+
