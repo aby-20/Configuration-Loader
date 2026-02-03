@@ -40,4 +40,13 @@ if(strchr(eq+1,'=')!=NULL)
 return 0;
 //added condition to check whether the "=" is present more than ones
 *eq = '\0';
+char *k = trim(line);
+char *v = trim(eq+1);
 
+if(*k == '\0')
+return 0;
+
+*key =k;
+*value = v;
+return 1;
+}
