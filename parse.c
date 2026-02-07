@@ -26,28 +26,26 @@ return s+begin;
 
 }
 
-int parse_kv(char *line,char** key,char** value){
-line = trim(line);
-//now we need to check whether the line we trimmed is empty or not
-if(line[0] == '\0'){
-return 0;
-}
-char *eq = strchr(line,'=');
-if (eq == NULL)
-return 0;
-if(eq==line)
-return 0;
-if(strchr(eq+1,'=')!=NULL)
-return 0;
-//added condition to check whether the "=" is present more than ones
-*eq = '\0';
-char *k = trim(line);
-char *v = trim(eq+1);
+int parse_kv(char *line, char** key, char** value)
+{
+    line = trim(line);
+    if (*line == '\0')
+        return 0;
 
-if(*k == '\0')
-return 0;
+    char *eq = strchr(line, '=');
+    if (!eq || eq == line || strchr(eq + 1, '='))
+        return 0;
 
-*key =k;
-*value = v;
-return 1;
+    *eq = '\0';
+
+    char *k = trim(line);
+    char *v = trim(eq + 1);
+
+    if (*k == '\0' || *v == '\0')
+        return 0;
+
+    *key = k;
+    *value = v;
+    return 1;
 }
+

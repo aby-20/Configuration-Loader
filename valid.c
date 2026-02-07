@@ -6,23 +6,7 @@
 #include<stdlib.h>
 #include <stddef.h>
 #include "config.h"
-typedef enum {
-    CFG_INT,
-    CFG_BOOL,
-    CFG_STRING
-} cfg_type;
 
-typedef struct {
-    const char* key;
-    cfg_type type;
-    size_t offset;
-} cfg_schema;
-
-typedef struct {
-    int   port;
-    int   debug;
-    char* host;   // owned heap string
-} config_t;
 void config_destroy(config_t* cfg) {
     if (!cfg) return;
     free(cfg->host);

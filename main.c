@@ -26,19 +26,20 @@ int main(int argc, char* argv[])
     char* cursor = buf;
     char *line, *key, *value;
 
-    while ((line = next_line(&cursor)) != NULL) {
-        if (parse_kv(line, &key, &value) != 0)
-            return 1;
+ while ((line = next_line(&cursor)) != NULL) {
 
-        cfg_schema* entry = find_schema(schema, 3, key);
-        if (!entry || entry->seen)
-            return 1;
+    if (!parse_kv(line, &key, &value))
+        continue;
 
-        entry->seen = 1;
+    cfg_schema* entry = find_schema(schema, 3, key);
+    if (!entry || entry->seen)
+        return 1;
 
-        if (!parse_value(entry, value, &cfg))
-            return 1;
-    }
+    entry->seen = 1;
+
+    if (!parse_value(entry, value, &cfg))
+        return 1;
+}
 
     if (!validate_required(schema, 3))
         return 1;

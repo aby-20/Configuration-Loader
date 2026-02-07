@@ -10,19 +10,4 @@ return &schema[i];
 }
 return NULL;
 }
-while (read_next_config_line(fp, &key, &value))   
-{
-    cfg_schema *entry = find_schema(schema, schema_count, key);
 
-    if (entry == NULL) {
-        fprintf(stderr, "Unknown configuration key: %s\n", key);
-        return PARSE_ERR_UNKNOWN_KEY;
-    }
-
-    if (entry->seen) {
-        fprintf(stderr, "Duplicate configuration key: %s\n", key);
-        return PARSE_ERR_DUPLICATE_KEY;
-    }
-
-    entry->seen = 1;  
-}
