@@ -2,6 +2,15 @@
 #include<errno.h>
 #include<limits.h>
 #include<ctype.h>
+#include<string.h>
+#include<stdlib.h>
+
+
+typedef struct {
+    int   port;
+    int   debug;
+    char* host;   // owned heap string
+} config_t;
 
 
 int parse_int(const char* value,int* out){
@@ -77,4 +86,39 @@ return 1;
 //this function assumes the caller must free the memory allocated using the free(*out)
 
 }
+
+int parse_value(cfg_schema* entry,const char* value,config_t* out_cfg){
+if (entry == NULL) return 0;
+if (value == NULL) return 0;
+if (out_cfg == NULL) return 0;
+
+switch (entry->type) {
+case CFG_INT:{
+int* field = (int*)((char*)out_cfg + entry->offset);
+if(!parse_int(value,field))
+return 0;
+break;}
+case CFG_BOOL:{
+int* field = (int*)((char*)out_cfg + entry->offset);
+if (!parse_bool(value, field))
+    return 0;
+break;
+}
+case CFG_STRING:{
+char** field = (char**)((char*)out_cfg + entry->offset);
+if (!parse_string(value, field))
+    return 0;
+break;
+}
+default:
+return 0;
+}
+return 1;
+
+
+}
+
+
+
+
 
