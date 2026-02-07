@@ -5,7 +5,7 @@
 #include<sys/types.h>
 #include<sys/stat.h>
 #include<stdlib.h>
-
+#include"config.h"
 
 char* load_file(const char* path ,size_t *out_size){
 

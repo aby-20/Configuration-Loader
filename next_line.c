@@ -1,5 +1,5 @@
 #include<stdio.h>
-
+#include"config.h"
 char* next_line(char** cursor)
 {
     if(cursor==NULL || *cursor == NULL){

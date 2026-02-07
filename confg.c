@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include"config.h" 
 
 cfg_schema* find_schema(cfg_schema* schema,size_t schema_count ,const char*key){
 

@@ -2,6 +2,7 @@
 #include<unistd.h>
 #include<ctype.h>
 #include<string.h>
+#include "config.h"
 
 char* trim(char *s){
 size_t end = strlen(s);

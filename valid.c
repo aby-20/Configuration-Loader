@@ -5,7 +5,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include <stddef.h>
-
+#include "config.h"
 typedef enum {
     CFG_INT,
     CFG_BOOL,
