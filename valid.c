@@ -60,3 +60,21 @@ return 1;}
 return 0;
 
 }
+
+int parse_string(const char* value,char** out){
+if(value==NULL)
+return 0;
+if(out == NULL)
+return 0;
+
+size_t len = strlen(value) +1;
+char *copy = malloc(len);
+if(copy == NULL)
+return 0;
+strcpy(copy,value);
+*out =copy;
+return 1;
+//this function assumes the caller must free the memory allocated using the free(*out)
+
+}
+
