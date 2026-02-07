@@ -4,14 +4,29 @@
 #include<ctype.h>
 #include<string.h>
 #include<stdlib.h>
+#include <stddef.h>
 
+typedef enum {
+    CFG_INT,
+    CFG_BOOL,
+    CFG_STRING
+} cfg_type;
+
+typedef struct {
+    const char* key;
+    cfg_type type;
+    size_t offset;
+} cfg_schema;
 
 typedef struct {
     int   port;
     int   debug;
     char* host;   // owned heap string
 } config_t;
-
+void config_destroy(config_t* cfg) {
+    if (!cfg) return;
+    free(cfg->host);
+}
 
 int parse_int(const char* value,int* out){
 if(value==NULL)
@@ -106,17 +121,21 @@ break;
 }
 case CFG_STRING:{
 char** field = (char**)((char*)out_cfg + entry->offset);
-if (!parse_string(value, field))
+char* tmp = NULL;
+if (!parse_string(value, &tmp))
     return 0;
+free(*field);
+*field = tmp;    
+    
+    
 break;
 }
 default:
 return 0;
 }
 return 1;
-
-
 }
+
 
 
 
